@@ -119,9 +119,12 @@ namespace ImageGetter
             Ui.SetSysMessage(msgBox, "Letöltés befejeződött");
         }
 
-        private void inLoad_Click(object sender, EventArgs e)
-        {
+        private async void inLoad_Click(object sender, EventArgs e)
+        {   
+            FileController fc = new FileController(this);
+            await fc.ImportFromExcel();
 
+            Ui.SetSysMessage(msgBox, "Fájl betöltése sikeres");
         }
     }
 }

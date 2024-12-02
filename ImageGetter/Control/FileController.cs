@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 using System.Drawing;
 
 namespace ImageGetter.Handlers
@@ -22,8 +21,8 @@ namespace ImageGetter.Handlers
         {
             this.Form = form;
         }
-        public async Task DownloadFiles(DataGridView table )
-        {            
+        public async Task DownloadFiles(DataGridView table)
+        {
             foreach (DataGridViewRow row in table.Rows)
             {
                 try {
@@ -38,21 +37,21 @@ namespace ImageGetter.Handlers
 
                         byte[] fileData = await file.DownloadFromUrl(row.Cells["Status"].Value, row.Cells["Leírás"].Value);
                         string originalFormat = this.GetFileFormat(fileData);
-                        if(string.IsNullOrEmpty(file.Format) && originalFormat != "JPEG")
+                        if (string.IsNullOrEmpty(file.Format) && originalFormat != "JPEG")
                         {
-                            fileData = this.ConvertFileToTarget(fileData, "jpg");                            
-                        } 
-                        else if(originalFormat != file.Format)
+                            fileData = this.ConvertFileToTarget(fileData, "jpg");
+                        }
+                        else if (originalFormat != file.Format)
                         {
                             //TODO: Máksülönben van ott vmi és kell az egyéb konverzió
                             //TODO: lehet csak 2.0-ban...
                         }
 
                         file.Data = fileData;
-                        
+
                         this.SaveFile(file);
                         row.Cells["Status"].Value = "Sikeres letöltés";
-                        row.Cells["Status"].Style.BackColor = Color.LightGreen;                        
+                        row.Cells["Status"].Style.BackColor = Color.LightGreen;
 
                     } else
                     {
@@ -67,16 +66,62 @@ namespace ImageGetter.Handlers
             }
         }
 
-        public void ReadFile()
+        public async Task ImportFromExcel()
         {
             try
             {
+               FileModel readedFile = await this.ReadFile();
+                if (readedFile != null) {
+                    switch (readedFile.Format)
+                    {
+                        case "xlsx":
+                            //TODO: Handle xlsx
 
+                            break;
+                        case "csv":
+                            //TODO: Handle csv
 
-            } catch(Exception ex)
+                            break;
+                        default:
+                            throw new Exception("Nem feldolgozható formátum.");                            
+                    }
+
+                } else
+                {
+                    throw new Exception("A felolvasott fájl változó null");
+                }
+
+            } catch (Exception ex)
             {
-                MessageBox.Show("Hiba történt a file olvasása során \n" + ex.Message);
+                MessageBox.Show("Hiba történt a fájlok importálásakor \n" + ex.Message);
             }
+        }
+
+        public async Task<FileModel> ReadFile()
+        {
+            FileModel f = new FileModel();                        
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Excel (*.xlsx)|*.xlsx|CSV (*.csv)|*.csv|Minden fájl (*.*)|*.*";
+                openFileDialog.FilterIndex = 1; //?
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    f.Path = openFileDialog.FileName;
+                    var fileStream = openFileDialog.OpenFile();
+                    f.Format = Path.GetExtension(f.Path)?.ToLower().Split('.')[1]; //Get the extension
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        f.Content = await reader.ReadToEndAsync();
+                    }
+                }
+            }
+
+            return f;
         }
 
         public void SaveFile(FileModel f)
@@ -88,7 +133,7 @@ namespace ImageGetter.Handlers
                 Directory.CreateDirectory(OutputDirectory);
             }            
             string path = Path.Combine(OutputDirectory, $"{f.Name}.{f.Format}");
-            System.IO.File.WriteAllBytes(path, f.Data);            
+            File.WriteAllBytes(path, f.Data);            
 
         }
 

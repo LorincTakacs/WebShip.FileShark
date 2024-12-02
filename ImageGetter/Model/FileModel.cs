@@ -8,10 +8,12 @@ namespace ImageGetter.Model
     {
         public string Name { get; set; }
         public string Url { get; set; }
+        public string Path {  get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public string Format { get; set; }
         public byte[] Data { get; set; }
+        public string Content { get; set; }
 
         public async Task<byte[]> DownloadFromUrl(object statusCell=null, object descCell=null)
         {
