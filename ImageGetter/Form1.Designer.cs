@@ -53,7 +53,7 @@
             this.inLoad.Name = "inLoad";
             this.inLoad.Size = new System.Drawing.Size(132, 49);
             this.inLoad.TabIndex = 1;
-            this.inLoad.Text = "Adatok betöltése fájlból (csv, xls)";
+            this.inLoad.Text = "Adatok betöltése fájlból (csv)";
             this.inLoad.UseVisualStyleBackColor = true;
             this.inLoad.Click += new System.EventHandler(this.inLoad_Click);
             // 

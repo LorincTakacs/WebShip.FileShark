@@ -71,24 +71,18 @@ namespace ImageGetter.Handlers
             try
             {
                FileModel readedFile = await this.ReadFile();
-                if (readedFile != null) {
-                    switch (readedFile.Format)
-                    {
-                        case "xlsx":
-                            //TODO: Handle xlsx
-
-                            break;
-                        case "csv":
-                            //TODO: Handle csv
-
-                            break;
-                        default:
-                            throw new Exception("Nem feldolgozható formátum.");                            
-                    }
-
-                } else
+               switch (readedFile.Format)
                 {
-                    throw new Exception("A felolvasott fájl változó null");
+                    case "xlsx":
+                        //TODO: Handle xlsx
+
+                        break;
+                    case "csv":
+                        //TODO: Handle csv
+
+                        break;
+                    default:
+                        throw new Exception("Nem feldolgozható formátum."); //TODO: Ez nem biztos,hogy kell
                 }
 
             } catch (Exception ex)
@@ -99,12 +93,12 @@ namespace ImageGetter.Handlers
 
         public async Task<FileModel> ReadFile()
         {
-            FileModel f = new FileModel();                        
+            FileModel f = new FileModel();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Excel (*.xlsx)|*.xlsx|CSV (*.csv)|*.csv|Minden fájl (*.*)|*.*";
+                //openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "CSV (*.csv)|*.csv|Minden fájl (*.*)|*.*";
                 openFileDialog.FilterIndex = 1; //?
                 openFileDialog.RestoreDirectory = true;
 
