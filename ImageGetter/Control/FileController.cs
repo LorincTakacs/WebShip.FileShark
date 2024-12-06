@@ -8,9 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Runtime.InteropServices;
+using CsvHelper;
+using System.Globalization;
+using CsvHelper.Configuration;
 
 namespace ImageGetter.Handlers
 {
+    public class Record
+    {
+        public string URL { get; set; }
+        public string Name { get; set; }
+        public string Format { get; set; } 
+                
+
+    }
     internal class FileController
     {
         private Form1 _form;
@@ -66,25 +78,51 @@ namespace ImageGetter.Handlers
             }
         }
 
-        public async Task ImportFromExcel()
+        public List<Record> ReadCsvFromString(string content)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ";", // Set the correct delimiter
+                HeaderValidated = null, // Ignore missing headers if necessary
+                MissingFieldFound = null // Ignore missing fields
+            };
+
+            using (var reader = new StringReader(content))
+            using (var csv = new CsvReader(reader, config))
+            {
+                return new List<Record>(csv.GetRecords<Record>());
+            }
+        }
+
+        public async Task ImportFromExcel(DataGridView table)
         {
             try
             {
-               FileModel readedFile = await this.ReadFile();
-               switch (readedFile.Format)
-                {
-                    case "xlsx":
-                        //TODO: Handle xlsx
+              FileModel readedFile = await this.ReadFile();
+              if(readedFile.Format != null) {
+                    switch (readedFile.Format)
+                    {
+                        case "xlsx":
+                            //TODO: Handle xlsx
+                            throw new Exception("Xlsx formátum feldolgozása még fejlesztés alatt áll!");
+                            //break;
 
-                        break;
-                    case "csv":
-                        //TODO: Handle csv
-
-                        break;
-                    default:
-                        throw new Exception("Nem feldolgozható formátum."); //TODO: Ez nem biztos,hogy kell
-                }
-
+                        case "csv":
+                            List<Record> data = this.ReadCsvFromString(readedFile.Content);
+                            foreach(var record in data)
+                            {                                
+                                int rowIndex = table.Rows.Add();
+                                table.Rows[rowIndex].Cells["URL"].Value = record.URL;
+                                table.Rows[rowIndex].Cells["Név"].Value = record.Name;
+                                table.Rows[rowIndex].Cells["Kiterjesztés"].Value = record.Format;                                
+                            }
+                            break;
+                        default:
+                           throw new Exception("Nem feldolgozható formátum");
+                    }
+              } else {
+                    throw new Exception("Nem választott fájlt!");
+              }
             } catch (Exception ex)
             {
                 MessageBox.Show("Hiba történt a fájlok importálásakor \n" + ex.Message);

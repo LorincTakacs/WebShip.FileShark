@@ -31,7 +31,7 @@ namespace ImageGetter
              *UI: 
              */
             Ui = new Ui();
-            Ui.MsgBox = msgBox;
+            Ui.MsgBox = msgBox;            
 
             /*
              * Grid:
@@ -122,7 +122,7 @@ namespace ImageGetter
         private async void inLoad_Click(object sender, EventArgs e)
         {   
             FileController fc = new FileController(this);
-            await fc.ImportFromExcel();
+            await fc.ImportFromExcel(tableUI);
 
             Ui.SetSysMessage(msgBox, "Fájl betöltése sikeres");
         }
