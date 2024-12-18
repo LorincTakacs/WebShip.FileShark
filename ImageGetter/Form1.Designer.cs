@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableUI = new System.Windows.Forms.DataGridView();
             this.inLoad = new System.Windows.Forms.Button();
             this.clearTable = new System.Windows.Forms.Button();
@@ -41,7 +42,7 @@
             this.tableUI.AllowDrop = true;
             this.tableUI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableUI.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tableUI.Location = new System.Drawing.Point(12, 87);
+            this.tableUI.Location = new System.Drawing.Point(123, 85);
             this.tableUI.Name = "tableUI";
             this.tableUI.RowHeadersWidth = 51;
             this.tableUI.Size = new System.Drawing.Size(776, 277);
@@ -49,7 +50,7 @@
             // 
             // inLoad
             // 
-            this.inLoad.Location = new System.Drawing.Point(12, 12);
+            this.inLoad.Location = new System.Drawing.Point(133, 13);
             this.inLoad.Name = "inLoad";
             this.inLoad.Size = new System.Drawing.Size(132, 49);
             this.inLoad.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             // clearTable
             // 
-            this.clearTable.Location = new System.Drawing.Point(159, 12);
+            this.clearTable.Location = new System.Drawing.Point(290, 13);
             this.clearTable.Name = "clearTable";
             this.clearTable.Size = new System.Drawing.Size(132, 49);
             this.clearTable.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // downloadImages
             // 
-            this.downloadImages.Location = new System.Drawing.Point(656, 12);
+            this.downloadImages.Location = new System.Drawing.Point(767, 13);
             this.downloadImages.Name = "downloadImages";
             this.downloadImages.Size = new System.Drawing.Size(132, 49);
             this.downloadImages.TabIndex = 3;
@@ -82,7 +83,7 @@
             this.msgBox.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.msgBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.msgBox.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.msgBox.Location = new System.Drawing.Point(12, 389);
+            this.msgBox.Location = new System.Drawing.Point(123, 570);
             this.msgBox.Name = "msgBox";
             this.msgBox.ReadOnly = true;
             this.msgBox.Size = new System.Drawing.Size(776, 138);
@@ -93,13 +94,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 588);
+            this.BackgroundImage = global::ImageGetter.Properties.Resources.FileShark_Background;
+            this.ClientSize = new System.Drawing.Size(1061, 731);
             this.Controls.Add(this.msgBox);
             this.Controls.Add(this.downloadImages);
             this.Controls.Add(this.clearTable);
             this.Controls.Add(this.inLoad);
             this.Controls.Add(this.tableUI);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "A Cápa";
             ((System.ComponentModel.ISupportInitialize)(this.tableUI)).EndInit();
