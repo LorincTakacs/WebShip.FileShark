@@ -3,7 +3,9 @@ using ImageGetter.View;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -95,7 +97,7 @@ namespace ImageGetter
                 }
             }
 
-        }        
+        }
 
         private void clearTable_Click(object sender, EventArgs e)
         {
@@ -125,6 +127,25 @@ namespace ImageGetter
             await fc.ImportFromExcel(tableUI);
 
             Ui.SetSysMessage(msgBox, "Fájl betöltése sikeres");
+        }
+
+        private void OpenFileContainerBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FileController fc = new FileController(this);
+                if (Directory.Exists(fc.OutputDirectory))
+                {                    
+                    Process.Start(fc.OutputDirectory);
+                } else
+                {
+                    Ui.SetSysMessage(msgBox, "Semmi baj! A mappa még nem létezik vagy törlődött, próbáld meg előbb futattni a letöltést és majd létrejön.");
+                }
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show("Oops, valami hiba történt. A mappa megnyitás sikertelen" + ex.Message);
+            }            
         }
     }
 }

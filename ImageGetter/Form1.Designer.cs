@@ -34,6 +34,7 @@
             this.clearTable = new System.Windows.Forms.Button();
             this.downloadImages = new System.Windows.Forms.Button();
             this.msgBox = new System.Windows.Forms.RichTextBox();
+            this.OpenFileContainerBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tableUI)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,12 +91,23 @@
             this.msgBox.TabIndex = 4;
             this.msgBox.Text = "";
             // 
+            // OpenFileContainerBtn
+            // 
+            this.OpenFileContainerBtn.Location = new System.Drawing.Point(767, 368);
+            this.OpenFileContainerBtn.Name = "OpenFileContainerBtn";
+            this.OpenFileContainerBtn.Size = new System.Drawing.Size(132, 49);
+            this.OpenFileContainerBtn.TabIndex = 5;
+            this.OpenFileContainerBtn.Text = "Fájl mappa megnyitása";
+            this.OpenFileContainerBtn.UseVisualStyleBackColor = true;
+            this.OpenFileContainerBtn.Click += new System.EventHandler(this.OpenFileContainerBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ImageGetter.Properties.Resources.FileShark_Background;
             this.ClientSize = new System.Drawing.Size(1061, 731);
+            this.Controls.Add(this.OpenFileContainerBtn);
             this.Controls.Add(this.msgBox);
             this.Controls.Add(this.downloadImages);
             this.Controls.Add(this.clearTable);
@@ -117,6 +129,7 @@
         private System.Windows.Forms.Button clearTable;
         private System.Windows.Forms.Button downloadImages;
         private System.Windows.Forms.RichTextBox msgBox;
+        private System.Windows.Forms.Button OpenFileContainerBtn;
     }
 }
 

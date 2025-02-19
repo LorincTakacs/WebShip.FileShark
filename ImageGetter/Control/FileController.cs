@@ -31,6 +31,7 @@ namespace ImageGetter.Handlers
         public string OutputDirectory { get { return _outputDirectory; } set { _outputDirectory = value; } }
         public FileController(Form1 form)
         {
+
             this.Form = form;
         }
         public async Task DownloadFiles(DataGridView table)
