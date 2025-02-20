@@ -122,7 +122,7 @@ namespace ImageGetter
         }
 
         private async void inLoad_Click(object sender, EventArgs e)
-        {   
+        {
             FileController fc = new FileController(this);
             await fc.ImportFromExcel(tableUI);
 
@@ -145,7 +145,7 @@ namespace ImageGetter
             } catch(Exception ex)
             {
                 MessageBox.Show("Oops, valami hiba történt. A mappa megnyitás sikertelen" + ex.Message);
-            }            
+            }
         }
     }
 }

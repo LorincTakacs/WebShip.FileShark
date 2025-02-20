@@ -36,6 +36,8 @@ namespace ImageGetter.Handlers
         }
         public async Task DownloadFiles(DataGridView table)
         {
+            int errorCounter = 0;
+
             foreach (DataGridViewRow row in table.Rows)
             {
                 try {
@@ -74,9 +76,12 @@ namespace ImageGetter.Handlers
                 } catch (Exception ex) {
                     row.Cells["Status"].Value = "Sikertelen letöltés";
                     row.Cells["Status"].Style.BackColor = Color.Red;
-                    row.Cells["Leírás"].Value = ex.Message;
+                    row.Cells["Leírás"].Value = ex.Message;                    
+                    errorCounter++;
                 }
             }
+
+            Form.Ui.SetSysMessage(Form.msgBox, $"Sikertelen letöltés rekordok száma: {errorCounter}");
         }
 
         public List<Record> ReadCsvFromString(string content)

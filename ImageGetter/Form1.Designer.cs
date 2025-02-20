@@ -128,7 +128,7 @@
         private System.Windows.Forms.Button inLoad;
         private System.Windows.Forms.Button clearTable;
         private System.Windows.Forms.Button downloadImages;
-        private System.Windows.Forms.RichTextBox msgBox;
+        public System.Windows.Forms.RichTextBox msgBox;
         private System.Windows.Forms.Button OpenFileContainerBtn;
     }
 }
