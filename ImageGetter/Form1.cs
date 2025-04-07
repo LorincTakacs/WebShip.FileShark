@@ -8,14 +8,16 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ImageGetter
 {
     public partial class Form1 : Form
     {
         private Ui _ui;
-
+        private string _outputDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FileContainer"); //Default                
         public Ui Ui { get { return _ui; } set { _ui = value; } }
+        public string OutputDirectory { get { return _outputDirectory; } set { _outputDirectory = value; } }
         public Form1()
         {
             InitializeComponent();
@@ -133,10 +135,10 @@ namespace ImageGetter
         {
             try
             {
-                FileController fc = new FileController(this);
-                if (Directory.Exists(fc.OutputDirectory))
+                //FileController fc = new FileController(this);
+                if (Directory.Exists(this.OutputDirectory))
                 {                    
-                    Process.Start(fc.OutputDirectory);
+                    Process.Start(this.OutputDirectory);
                 } else
                 {
                     Ui.SetSysMessage(msgBox, "Semmi baj! A mappa még nem létezik vagy törlődött, próbáld meg előbb futattni a letöltést és majd létrejön.");
@@ -145,6 +147,25 @@ namespace ImageGetter
             } catch(Exception ex)
             {
                 MessageBox.Show("Oops, valami hiba történt. A mappa megnyitás sikertelen" + ex.Message);
+            }
+        }
+
+        private void setTargetFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FolderBrowserDialog fd = new FolderBrowserDialog()) {                    
+
+                    fd.Description = "Akik jobban félnek a fájdalomtól, mint a vereségtől, azok megízlelik mindet!";
+
+                    if (fd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fd.SelectedPath))
+                    {
+                        this.OutputDirectory = fd.SelectedPath;
+                    }
+                }
+            } catch(Exception ex)
+            {
+                Ui.SetSysMessage(msgBox, "Sikertelen cél mappa konfigurálás. Próábld újra vagy keres a fejlesztőt.");
             }
         }
     }

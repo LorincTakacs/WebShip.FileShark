@@ -35,6 +35,7 @@
             this.downloadImages = new System.Windows.Forms.Button();
             this.msgBox = new System.Windows.Forms.RichTextBox();
             this.OpenFileContainerBtn = new System.Windows.Forms.Button();
+            this.setTargetFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tableUI)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,12 +102,23 @@
             this.OpenFileContainerBtn.UseVisualStyleBackColor = true;
             this.OpenFileContainerBtn.Click += new System.EventHandler(this.OpenFileContainerBtn_Click);
             // 
+            // setTargetFolder
+            // 
+            this.setTargetFolder.Location = new System.Drawing.Point(619, 368);
+            this.setTargetFolder.Name = "setTargetFolder";
+            this.setTargetFolder.Size = new System.Drawing.Size(132, 49);
+            this.setTargetFolder.TabIndex = 6;
+            this.setTargetFolder.Text = "Cél mappa beállítása";
+            this.setTargetFolder.UseVisualStyleBackColor = true;
+            this.setTargetFolder.Click += new System.EventHandler(this.setTargetFolder_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ImageGetter.Properties.Resources.FileShark_Background;
             this.ClientSize = new System.Drawing.Size(1061, 731);
+            this.Controls.Add(this.setTargetFolder);
             this.Controls.Add(this.OpenFileContainerBtn);
             this.Controls.Add(this.msgBox);
             this.Controls.Add(this.downloadImages);
@@ -130,6 +142,7 @@
         private System.Windows.Forms.Button downloadImages;
         public System.Windows.Forms.RichTextBox msgBox;
         private System.Windows.Forms.Button OpenFileContainerBtn;
+        private System.Windows.Forms.Button setTargetFolder;
     }
 }
 

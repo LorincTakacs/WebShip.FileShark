@@ -26,9 +26,9 @@ namespace ImageGetter.Handlers
     internal class FileController
     {
         private Form1 _form;
-        private string _outputDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FileContainer"); //Default        
+        //private string _outputDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FileContainer"); //Default        
         public Form1 Form { get { return _form; } set { _form = value; } }
-        public string OutputDirectory { get { return _outputDirectory; } set { _outputDirectory = value; } }
+        //public string OutputDirectory { get { return _outputDirectory; } set { _outputDirectory = value; } }
         public FileController(Form1 form)
         {
 
@@ -63,6 +63,8 @@ namespace ImageGetter.Handlers
                         }
 
                         file.Data = fileData;
+                        //TODO: itt lehetne csökkenteni/korrigálni a képek méretét
+
 
                         this.SaveFile(file);
                         row.Cells["Status"].Value = "Sikeres letöltés";
@@ -166,11 +168,11 @@ namespace ImageGetter.Handlers
         {
             if (f == null || f.Data.Length == 0) throw new ArgumentException("Hibás file, mentés sikertelen");
                         
-            if(!Directory.Exists(OutputDirectory))
+            if(!Directory.Exists(Form.OutputDirectory))
             {
-                Directory.CreateDirectory(OutputDirectory);
+                Directory.CreateDirectory(Form.OutputDirectory);
             }            
-            string path = Path.Combine(OutputDirectory, $"{f.Name}.{f.Format}");
+            string path = Path.Combine(Form.OutputDirectory, $"{f.Name}.{f.Format}");
             File.WriteAllBytes(path, f.Data);            
 
         }
